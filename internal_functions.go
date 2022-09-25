@@ -93,25 +93,12 @@ func separatePowers(variablesList []string) (firstDegVar, secondDegVar, thirdDeg
 // output ==> -x
 func sumVariableValues(variablesList []string, power int) (totalCoeff float64) {
 	coefficients := []float64{}
-	switch power {
-	case 1:
-		coefficients = append(coefficients, getCoefficients(variablesList, "x")...)
-	case 2:
-		coefficients = append(coefficients, getCoefficients(variablesList, "x^2")...)
-	case 3:
-		coefficients = append(coefficients, getCoefficients(variablesList, "x^3")...)
+	for _, ax := range variablesList {
+		coeff, _ := strconv.ParseFloat(strings.Split(ax, "x")[0], 64)
+		coefficients = append(coefficients, coeff)
 	}
 	for _, coeff := range coefficients {
 		totalCoeff += coeff
-	}
-	return
-}
-
-// Separates coefficients from variables: input = ([3x^2, 2x^1], x^2); output = [3]
-func getCoefficients(variablesList []string, variableToReplace string) (coefficients []float64) {
-	for _, ax := range variablesList {
-		coeff, _ := strconv.ParseFloat(strings.ReplaceAll(ax, variableToReplace, ""), 64)
-		coefficients = append(coefficients, coeff)
 	}
 	return
 }
