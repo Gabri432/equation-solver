@@ -112,6 +112,21 @@ func sumConstantValues(constantsList []string) (total float64) {
 	return
 }
 
+func evaluateEquationDeg(equation string) {
+	switch {
+	case strings.Contains(equation, "x^3"):
+		solveCubicEquation(equation)
+	case strings.Contains(equation, "x^2"):
+		solveQuadraticEquation(equation)
+	case strings.Contains(equation, "x"):
+		solveLinearEquation(equation)
+	}
+}
+
+func solveLinearEquation(equation string)
+func solveQuadraticEquation(equation string)
+func solveCubicEquation(equation string)
+
 /*
 x^2+2 = 0
 x^2/+2/=/0
