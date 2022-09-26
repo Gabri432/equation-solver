@@ -5,6 +5,13 @@ import (
 	"strings"
 )
 
+type Polynom struct {
+	thirdDegVarCoefficient  float64
+	secondDegVarCoefficient float64
+	firstDegVarCoefficient  float64
+	constant                float64
+}
+
 // Checks if the given string is either a '+' plus, or '-' minus, or '=' equal sign.
 //
 // If so it returns true, otherwise false.
@@ -44,7 +51,7 @@ func splitEquation(equation string) (xVariables, constants []string) {
 			value = changeSign(value)
 		}
 		switch {
-		case strings.Contains(value, "X"):
+		case strings.Contains(value, "x"):
 			xVariables = append(xVariables, value)
 		case strings.Contains(value, "="):
 			isOverEqualSign = true
@@ -112,20 +119,23 @@ func sumConstantValues(constantsList []string) (total float64) {
 	return
 }
 
-func evaluateEquationDeg(equation string) {
+// Create a Polynom of type: ax^3+bx^2+cx+d=0
+func createSamplePolynom(firstDegVarCoefficient, secondDegVarCoefficient, thirdDegVarCoefficient, constant float64) Polynom
+
+func evaluatePolynomDeg(polynom Polynom) {
 	switch {
-	case strings.Contains(equation, "x^3"):
-		solveCubicEquation(equation)
-	case strings.Contains(equation, "x^2"):
-		solveQuadraticEquation(equation)
-	case strings.Contains(equation, "x"):
-		solveLinearEquation(equation)
+	case polynom.thirdDegVarCoefficient != 0:
+		solveCubicEquation(polynom)
+	case polynom.secondDegVarCoefficient != 0:
+		solveQuadraticEquation(polynom)
+	case polynom.firstDegVarCoefficient != 0:
+		solveLinearEquation(polynom)
 	}
 }
 
-func solveLinearEquation(equation string)
-func solveQuadraticEquation(equation string)
-func solveCubicEquation(equation string)
+func solveLinearEquation(polynom Polynom) {}
+func solveQuadraticEquation(polynom Polynom)
+func solveCubicEquation(polynom Polynom)
 
 /*
 x^2+2 = 0
