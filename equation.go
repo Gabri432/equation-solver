@@ -1,3 +1,4 @@
+// Check its correctness with this link: https://www.calculatorsoup.com/calculators/algebra/cubicequation.php
 package equationsolver
 
 import (

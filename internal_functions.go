@@ -1,6 +1,7 @@
 package equationsolver
 
 import (
+	"math"
 	"strconv"
 	"strings"
 )
@@ -120,7 +121,14 @@ func sumConstantValues(constantsList []string) (total float64) {
 }
 
 // Create a Polynom of type: ax^3+bx^2+cx+d=0
-func createSamplePolynom(firstDegVarCoefficient, secondDegVarCoefficient, thirdDegVarCoefficient, constant float64) Polynom
+func createSamplePolynom(firstDegVarCoefficient, secondDegVarCoefficient, thirdDegVarCoefficient, constant float64) Polynom {
+	return Polynom{
+		firstDegVarCoefficient:  firstDegVarCoefficient,
+		secondDegVarCoefficient: secondDegVarCoefficient,
+		thirdDegVarCoefficient:  thirdDegVarCoefficient,
+		constant:                constant,
+	}
+}
 
 func evaluatePolynomDeg(polynom Polynom) {
 	switch {
@@ -133,9 +141,51 @@ func evaluatePolynomDeg(polynom Polynom) {
 	}
 }
 
-func solveLinearEquation(polynom Polynom) {}
-func solveQuadraticEquation(polynom Polynom)
-func solveCubicEquation(polynom Polynom)
+// It solves a linear equation of type ax+b=0.
+func solveLinearEquation(polynom Polynom) (result float64) {
+	return (polynom.constant / polynom.firstDegVarCoefficient) * -1
+}
+
+// It solves a quadratic equation of type ax^2+bx+c=0.
+func solveQuadraticEquation(polynom Polynom) (x1, x2 float64) {
+	a := polynom.secondDegVarCoefficient
+	b := polynom.firstDegVarCoefficient
+	c := polynom.constant
+	delta := b*b - 4*a*c
+	x1 = (b - math.Sqrt(delta)) / (2 * a)
+	x2 = (b + math.Sqrt(delta)) / (2 * a)
+	return
+}
+
+// It solves a cubic equation of type ax^3+bx^2+cx+d=0 using the General Cubic formula
+//
+// This is how it solve it https://en.wikipedia.org/wiki/Cubic_equation
+func solveCubicEquation(polynom Polynom) (x0, x1, x2 string) {
+	a := polynom.thirdDegVarCoefficient
+	b := polynom.secondDegVarCoefficient
+	c := polynom.firstDegVarCoefficient
+	d := polynom.constant
+	deltaZero := b*b - 3*a*c
+	deltaOne := 2*b*b*b - 9*a*b*c + 27*a*a*d
+	C := math.Cbrt(deltaOne + math.Sqrt(deltaOne*deltaOne-4*deltaZero*deltaZero*deltaZero)/2)
+	// e := "-1/2 + (1.73/2)i" // It should be [-1 + squareRoot(-3)]/2 == -1/2 + (1.73/2)i
+	// e2 := "17/324 + (4/9)i" // e^2
+	x0 = strconv.FormatFloat(-(1/3*a)*(b+C+deltaZero/C), 'f', 3, 64)
+	x1 = strconv.FormatFloat(-(1/3*a)*b, 'f', 3, 64) + epsilonPoweredOneMultiplyingC(a, C, deltaZero)
+	// + ((-1/3*a)*C)+ ((-1/3*a)*deltaZero)/C
+	return
+}
+
+// C * -1/3a * 17/324 + [C * -1/3a * 4/9]i
+
+// It calculates e*C + deltaZero/e*C, where e = -1/2 + (1.73/2)i, C is explained here https://en.wikipedia.org/wiki/Cubic_equation
+func epsilonPoweredOneMultiplyingC(a, C, deltaZero float64) (solution string) {
+	y1 := strconv.FormatFloat(((-1/3*a)*C)*(-1/2), 'f', 3, 64)
+	y2 := strconv.FormatFloat(((-1/3*a)*C)*(1.73/2), 'f', 3, 64) + "i"
+	//y3 := strconv.FormatFloat(1/2, 'f', 3, 64)
+	solution = y1 + " " + y2
+	return
+}
 
 /*
 x^2+2 = 0
