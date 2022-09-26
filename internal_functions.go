@@ -182,8 +182,8 @@ func solveCubicEquation(polynom Polynom) (x0, x1, x2 string) {
 func epsilonPoweredOneMultiplyingC(a, C, deltaZero float64) (solution string) {
 	y1 := strconv.FormatFloat(((-1/3*a)*C)*(-1/2), 'f', 3, 64)
 	y2 := strconv.FormatFloat(((-1/3*a)*C)*(1.73/2), 'f', 3, 64) + "i"
-	//y3 := strconv.FormatFloat(1/2, 'f', 3, 64)
-	solution = y1 + " " + y2
+	y3 := strconv.FormatFloat(deltaZero, 'f', 3, 64)
+	solution = y1 + " " + y2 + " " + "( " + y3 + "/ (" + y1 + " " + y2 + "))"
 	return
 }
 
