@@ -172,7 +172,7 @@ func solveCubicEquation(polynom Polynom) (x0, x1, x2 string) {
 	// e2 := "17/324 + (4/9)i" // e^2
 	x0 = strconv.FormatFloat(-(1/3*a)*(b+C+deltaZero/C), 'f', 3, 64)
 	x1 = strconv.FormatFloat(-(1/3*a)*b, 'f', 3, 64) + epsilonPoweredOneMultiplyingC(a, C, deltaZero)
-	// + ((-1/3*a)*C)+ ((-1/3*a)*deltaZero)/C
+	x2 = strconv.FormatFloat(-(1/3*a)*b, 'f', 3, 64) + epsilonPoweredTwoMultiplyingC(a, C, deltaZero)
 	return
 }
 
@@ -180,8 +180,17 @@ func solveCubicEquation(polynom Polynom) (x0, x1, x2 string) {
 
 // It calculates e*C + deltaZero/e*C, where e = -1/2 + (1.73/2)i, C is explained here https://en.wikipedia.org/wiki/Cubic_equation
 func epsilonPoweredOneMultiplyingC(a, C, deltaZero float64) (solution string) {
-	y1 := strconv.FormatFloat(((-1/3*a)*C)*(-1/2), 'f', 3, 64)
-	y2 := strconv.FormatFloat(((-1/3*a)*C)*(1.73/2), 'f', 3, 64) + "i"
+	y1 := strconv.FormatFloat(((-1/3*a)*C)*(-1/2)*deltaZero, 'f', 3, 64)
+	y2 := strconv.FormatFloat(((-1/3*a)*C)*(1.73/2)*deltaZero, 'f', 3, 64) + "i"
+	y3 := strconv.FormatFloat(deltaZero, 'f', 3, 64)
+	solution = y1 + " " + y2 + " " + "( " + y3 + "/ (" + y1 + " " + y2 + "))"
+	return
+}
+
+// It calculates (e^2)*C + deltaZero/(e^2)*C, where e^2 = 17/324 + (4/9)i, C is explained here https://en.wikipedia.org/wiki/Cubic_equation
+func epsilonPoweredTwoMultiplyingC(a, C, deltaZero float64) (solution string) {
+	y1 := strconv.FormatFloat(((-1/3*a)*C)*(17/324)*deltaZero, 'f', 3, 64)
+	y2 := strconv.FormatFloat(((-1/3*a)*C)*(4/9)*deltaZero, 'f', 3, 64) + "i"
 	y3 := strconv.FormatFloat(deltaZero, 'f', 3, 64)
 	solution = y1 + " " + y2 + " " + "( " + y3 + "/ (" + y1 + " " + y2 + "))"
 	return
