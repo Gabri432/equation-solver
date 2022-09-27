@@ -101,3 +101,10 @@ func TestSolveQuadraticEquation(t *testing.T) {
 	}
 
 }
+
+func TestSolveCubicEquation(t *testing.T) {
+	myPolynom := createSamplePolynom(1, 1, 1, 1)
+	x0, x1, x2 := solveCubicEquation(myPolynom)
+	t.Fatal(x0, "\nx1:", x1, "\nx2:", x2)
+
+}

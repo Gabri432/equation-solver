@@ -165,39 +165,26 @@ func solveQuadraticEquation(polynom Polynom) (x1, x2 float64) {
 // It solves a cubic equation of type ax^3+bx^2+cx+d=0 using the General Cubic formula
 //
 // This is how it solve it https://en.wikipedia.org/wiki/Cubic_equation
-func solveCubicEquation(polynom Polynom) (x0, x1, x2 string) {
+func solveCubicEquation(polynom Polynom) (x0, x1, x2 complex128) {
 	a := polynom.a
 	b := polynom.b
 	c := polynom.c
 	d := polynom.d
 	deltaZero := b*b - 3*a*c
 	deltaOne := 2*b*b*b - 9*a*b*c + 27*a*a*d
-	C := math.Cbrt(deltaOne + math.Sqrt(deltaOne*deltaOne-4*deltaZero*deltaZero*deltaZero)/2)
+	deltaDifference := deltaOne*deltaOne - 4*deltaZero*deltaZero*deltaZero
+	C := math.Cbrt(deltaOne + math.Sqrt(deltaDifference)/2)
 	// e := "-1/2 + (1.73/2)i" // It should be [-1 + squareRoot(-3)]/2 == -1/2 + (1.73/2)i
 	// e2 := "17/324 + (4/9)i" // e^2
-	x0 = strconv.FormatFloat(-(1/3*a)*(b+C+deltaZero/C), 'f', 3, 64)
-	x1 = strconv.FormatFloat(-(1/3*a)*b, 'f', 3, 64) + epsilonPoweredOneMultiplyingC(a, C, deltaZero)
-	x2 = strconv.FormatFloat(-(1/3*a)*b, 'f', 3, 64) + epsilonPoweredTwoMultiplyingC(a, C, deltaZero)
-	return
-}
-
-// C * -1/3a * 17/324 + [C * -1/3a * 4/9]i
-
-// It calculates e*C + deltaZero/e*C, where e = -1/2 + (1.73/2)i, C is explained here https://en.wikipedia.org/wiki/Cubic_equation
-func epsilonPoweredOneMultiplyingC(a, C, deltaZero float64) (solution string) {
-	y1 := strconv.FormatFloat(((-1/3*a)*C)*(-1/2)*deltaZero, 'f', 3, 64)
-	y2 := strconv.FormatFloat(((-1/3*a)*C)*(1.73/2)*deltaZero, 'f', 3, 64) + "i"
-	y3 := strconv.FormatFloat(deltaZero, 'f', 3, 64)
-	solution = y1 + " " + y2 + " " + "( " + y3 + "/ (" + y1 + " " + y2 + "))"
-	return
-}
-
-// It calculates (e^2)*C + deltaZero/(e^2)*C, where e^2 = 17/324 + (4/9)i, C is explained here https://en.wikipedia.org/wiki/Cubic_equation
-func epsilonPoweredTwoMultiplyingC(a, C, deltaZero float64) (solution string) {
-	y1 := strconv.FormatFloat(((-1/3*a)*C)*(17/324)*deltaZero, 'f', 3, 64)
-	y2 := strconv.FormatFloat(((-1/3*a)*C)*(4/9)*deltaZero, 'f', 3, 64) + "i"
-	y3 := strconv.FormatFloat(deltaZero, 'f', 3, 64)
-	solution = y1 + " " + y2 + " " + "( " + y3 + "/ (" + y1 + " " + y2 + "))"
+	epsilon := complex(1/2, 1.73/2)
+	epsilon2 := epsilon * epsilon
+	if C == 0 {
+		x0 = 0
+	} else {
+		x0 = complex((-1/(3*a))*(b+C+(deltaZero/C)), 0)
+	}
+	x1 = complex(-1/(3*a), 0) * (complex(b, 0) + complex(C, 0)*epsilon + complex(deltaZero, 0)/(complex(C, 0)*epsilon))
+	x2 = complex(-1/(3*a), 0) * (complex(b, 0) + complex(C, 0)*epsilon2 + complex(deltaZero, 0)/(complex(C, 0)*epsilon2))
 	return
 }
 
