@@ -92,14 +92,14 @@ func separatePowers(variablesList []string) (firstDegVar, secondDegVar, thirdDeg
 	return
 }
 
-// Sums all the variables value of a specific power.
+// Sums all the variables value that are powered at the same exponential value.
 //
 // Example:
 //
-// input ==> [x +3x -5x], 1
+// input ==> [x +3x -5x]
 //
 // output ==> -x
-func sumVariableValues(variablesList []string, power int) (totalCoeff float64) {
+func sumVariableValues(variablesList []string) (totalCoeff float64) {
 	coefficients := []float64{}
 	for _, ax := range variablesList {
 		coeff, _ := strconv.ParseFloat(strings.Split(ax, "x")[0], 64)
