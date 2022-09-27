@@ -86,3 +86,18 @@ func TestSolveLinearEquation(t *testing.T) {
 	}
 
 }
+
+func TestSolveQuadraticEquation(t *testing.T) {
+	myPolynom := createSamplePolynom(4, 2, 0, 1)
+	x1, x2 := solveQuadraticEquation(myPolynom)
+	if x1 > x2 {
+		t.Fatal("Expected x2 to be bigger than x1, but it is not.")
+	}
+	if x1 < -1.8 || x1 > -1.6 {
+		t.Fatalf("Expected to have 2 as result, got %f", solveLinearEquation(myPolynom))
+	}
+	if x2 < -0.3 || x1 > 0 {
+		t.Fatalf("Expected to have 2 as result, got %f", solveLinearEquation(myPolynom))
+	}
+
+}

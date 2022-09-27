@@ -151,14 +151,14 @@ func solveLinearEquation(polynom Polynom) (result float64) {
 	return (polynom.constant / polynom.firstDegVarCoefficient) * -1
 }
 
-// It solves a quadratic equation of type ax^2+bx+c=0.
+// It solves a quadratic equation of type ax^2+bx+c=0, as long as delta is not negative.
 func solveQuadraticEquation(polynom Polynom) (x1, x2 float64) {
 	a := polynom.secondDegVarCoefficient
 	b := polynom.firstDegVarCoefficient
 	c := polynom.constant
 	delta := b*b - 4*a*c
-	x1 = (b - math.Sqrt(delta)) / (2 * a)
-	x2 = (b + math.Sqrt(delta)) / (2 * a)
+	x1 = (-b - math.Sqrt(delta)) / (2 * a)
+	x2 = (-b + math.Sqrt(delta)) / (2 * a)
 	return
 }
 
