@@ -80,7 +80,7 @@ func TestSumConstantValues(t *testing.T) {
 }
 
 func TestSolveLinearEquation(t *testing.T) {
-	myPolynom := createSamplePolynom(2, 0, 0, 4)
+	myPolynom := createSamplePolynom(0, 0, 2, 4)
 	if solveLinearEquation(myPolynom) != -2 {
 		t.Fatalf("Expected to have 2 as result, got %f", solveLinearEquation(myPolynom))
 	}
@@ -88,7 +88,7 @@ func TestSolveLinearEquation(t *testing.T) {
 }
 
 func TestSolveQuadraticEquation(t *testing.T) {
-	myPolynom := createSamplePolynom(4, 2, 0, 1)
+	myPolynom := createSamplePolynom(0, 2, 4, 1)
 	x1, x2 := solveQuadraticEquation(myPolynom)
 	if x1 > x2 {
 		t.Fatal("Expected x2 to be bigger than x1, but it is not.")

@@ -7,10 +7,10 @@ import (
 )
 
 type Polynom struct {
-	thirdDegVarCoefficient  float64
-	secondDegVarCoefficient float64
-	firstDegVarCoefficient  float64
-	constant                float64
+	a float64
+	b float64
+	c float64
+	d float64
 }
 
 // Checks if the given string is either a '+' plus, or '-' minus, or '=' equal sign.
@@ -126,36 +126,36 @@ func sumConstantValues(constantsList []string) (total float64) {
 }
 
 // Create a Polynom of type: ax^3+bx^2+cx+d=0
-func createSamplePolynom(firstDegVarCoefficient, secondDegVarCoefficient, thirdDegVarCoefficient, constant float64) Polynom {
+func createSamplePolynom(a, b, c, d float64) Polynom {
 	return Polynom{
-		firstDegVarCoefficient:  firstDegVarCoefficient,
-		secondDegVarCoefficient: secondDegVarCoefficient,
-		thirdDegVarCoefficient:  thirdDegVarCoefficient,
-		constant:                constant,
+		a: a,
+		b: b,
+		c: c,
+		d: d,
 	}
 }
 
 func evaluatePolynomDeg(polynom Polynom) {
 	switch {
-	case polynom.thirdDegVarCoefficient != 0:
+	case polynom.a != 0:
 		solveCubicEquation(polynom)
-	case polynom.secondDegVarCoefficient != 0:
+	case polynom.b != 0:
 		solveQuadraticEquation(polynom)
-	case polynom.firstDegVarCoefficient != 0:
+	case polynom.c != 0:
 		solveLinearEquation(polynom)
 	}
 }
 
 // It solves a linear equation of type ax+b=0.
 func solveLinearEquation(polynom Polynom) (result float64) {
-	return (polynom.constant / polynom.firstDegVarCoefficient) * -1
+	return (polynom.d / polynom.c) * -1
 }
 
 // It solves a quadratic equation of type ax^2+bx+c=0, as long as delta is not negative.
 func solveQuadraticEquation(polynom Polynom) (x1, x2 float64) {
-	a := polynom.secondDegVarCoefficient
-	b := polynom.firstDegVarCoefficient
-	c := polynom.constant
+	a := polynom.b
+	b := polynom.c
+	c := polynom.d
 	delta := b*b - 4*a*c
 	x1 = (-b - math.Sqrt(delta)) / (2 * a)
 	x2 = (-b + math.Sqrt(delta)) / (2 * a)
@@ -166,10 +166,10 @@ func solveQuadraticEquation(polynom Polynom) (x1, x2 float64) {
 //
 // This is how it solve it https://en.wikipedia.org/wiki/Cubic_equation
 func solveCubicEquation(polynom Polynom) (x0, x1, x2 string) {
-	a := polynom.thirdDegVarCoefficient
-	b := polynom.secondDegVarCoefficient
-	c := polynom.firstDegVarCoefficient
-	d := polynom.constant
+	a := polynom.a
+	b := polynom.b
+	c := polynom.c
+	d := polynom.d
 	deltaZero := b*b - 3*a*c
 	deltaOne := 2*b*b*b - 9*a*b*c + 27*a*a*d
 	C := math.Cbrt(deltaOne + math.Sqrt(deltaOne*deltaOne-4*deltaZero*deltaZero*deltaZero)/2)
