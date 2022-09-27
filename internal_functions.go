@@ -174,8 +174,6 @@ func solveCubicEquation(polynom Polynom) (x0, x1, x2 complex128) {
 	deltaOne := 2*b*b*b - 9*a*b*c + 27*a*a*d
 	deltaDifference := deltaOne*deltaOne - 4*deltaZero*deltaZero*deltaZero
 	C := math.Cbrt(deltaOne + math.Sqrt(deltaDifference)/2)
-	// e := "-1/2 + (1.73/2)i" // It should be [-1 + squareRoot(-3)]/2 == -1/2 + (1.73/2)i
-	// e2 := "17/324 + (4/9)i" // e^2
 	epsilon := complex(-1/2, 1.73/2)
 	epsilon2 := epsilon * epsilon
 	if C == 0 {
