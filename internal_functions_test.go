@@ -50,3 +50,17 @@ func TestChangeSign(t *testing.T) {
 		t.Fatalf("Expected 'x' as result, got %s", changeSign("x"))
 	}
 }
+
+func TestSeparatePowers(t *testing.T) {
+	x3, x2, x1 := separatePowers([]string{"x^3", "x^2", "x"})
+	if len(x3) != 1 {
+		t.Fatalf("Expected to have 1 element at third degree, got %d from: %s", len(x3), x3)
+	}
+	if len(x2) != 1 {
+		t.Fatalf("Expected to have 1 element at second degree, got %d from: %s", len(x2), x2)
+	}
+	if len(x1) != 1 {
+		t.Fatalf("Expected to have 1 element at first degree, got %d from: %s", len(x1), x1)
+	}
+
+}
