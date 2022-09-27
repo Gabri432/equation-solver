@@ -27,3 +27,14 @@ func TestReplaceEquation(t *testing.T) {
 	}
 
 }
+
+func TestSplitEquation(t *testing.T) {
+	variables, constants := splitEquation(replaceEquation(testPolynom))
+	if len(variables) != 3 {
+		t.Fatalf("Expected to have 3 variables, got %d from: %s", len(variables), variables)
+	}
+	if len(constants) != 2 {
+		t.Fatalf("Expected to have 2 constants, got %d from: %s", len(constants), constants)
+	}
+
+}
