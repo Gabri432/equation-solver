@@ -19,3 +19,11 @@ func TestIsSign(t *testing.T) {
 		t.Fatalf("Expected determinant should be one, got %d.", mapOfBools[true])
 	}
 }
+
+func TestReplaceEquation(t *testing.T) {
+	newEquation := replaceEquation(testPolynom)
+	if newEquation != "x^3;+2x^2;+x;+1;=;0" {
+		t.Fatalf("Expected x^3;+2x^2;+x;+1;=;0, got %s", newEquation)
+	}
+
+}
