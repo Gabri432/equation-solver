@@ -71,3 +71,10 @@ func TestSumVariableValues(t *testing.T) {
 	}
 
 }
+
+func TestSumConstantValues(t *testing.T) {
+	if sumConstantValues([]string{"1", "4", "-2"}) != 3 {
+		t.Fatalf("Expected to have 3 as result, got %f", sumConstantValues([]string{"1", "4", "-2"}))
+	}
+
+}
