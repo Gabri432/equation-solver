@@ -78,3 +78,11 @@ func TestSumConstantValues(t *testing.T) {
 	}
 
 }
+
+func TestSolveLinearEquation(t *testing.T) {
+	myPolynom := createSamplePolynom(2, 0, 0, 4)
+	if solveLinearEquation(myPolynom) != -2 {
+		t.Fatalf("Expected to have 2 as result, got %f", solveLinearEquation(myPolynom))
+	}
+
+}
