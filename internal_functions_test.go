@@ -38,3 +38,15 @@ func TestSplitEquation(t *testing.T) {
 	}
 
 }
+
+func TestChangeSign(t *testing.T) {
+	if changeSign("-2x") != "+2x" {
+		t.Fatalf("Expected '+2x' as result, got %s", changeSign("-2x"))
+	}
+	if changeSign("+3x") != "-3x" {
+		t.Fatalf("Expected '-3x' as result, got %s", changeSign("+3x"))
+	}
+	if changeSign("x") != "x" {
+		t.Fatalf("Expected 'x' as result, got %s", changeSign("x"))
+	}
+}
