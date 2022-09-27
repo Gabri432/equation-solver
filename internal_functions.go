@@ -102,6 +102,11 @@ func separatePowers(variablesList []string) (firstDegVar, secondDegVar, thirdDeg
 func sumVariableValues(variablesList []string) (totalCoeff float64) {
 	coefficients := []float64{}
 	for _, ax := range variablesList {
+		if ax == "x" {
+			ax = "1x"
+		} else if ax == "-x" {
+			ax = "-1x"
+		}
 		coeff, _ := strconv.ParseFloat(strings.Split(ax, "x")[0], 64)
 		coefficients = append(coefficients, coeff)
 	}

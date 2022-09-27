@@ -64,3 +64,10 @@ func TestSeparatePowers(t *testing.T) {
 	}
 
 }
+
+func TestSumVariableValues(t *testing.T) {
+	if sumVariableValues([]string{"x", "4x", "-2x"}) != 3 {
+		t.Fatalf("Expected to have 3 as result, got %f", sumVariableValues([]string{"x", "4x", "-2x"}))
+	}
+
+}
