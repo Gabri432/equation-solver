@@ -176,15 +176,17 @@ func solveCubicEquation(polynom Polynom) (x0, x1, x2 complex128) {
 	C := math.Cbrt(deltaOne + math.Sqrt(deltaDifference)/2)
 	// e := "-1/2 + (1.73/2)i" // It should be [-1 + squareRoot(-3)]/2 == -1/2 + (1.73/2)i
 	// e2 := "17/324 + (4/9)i" // e^2
-	epsilon := complex(1/2, 1.73/2)
+	epsilon := complex(-1/2, 1.73/2)
 	epsilon2 := epsilon * epsilon
 	if C == 0 {
-		x0 = 0
+		x0 = complex((-1/(3*a))*(b+C), 0)
+		x1 = complex(-1/(3*a), 0) * (complex(b, 0) + complex(C, 0)*epsilon)
+		x2 = complex(-1/(3*a), 0) * (complex(b, 0) + complex(C, 0)*epsilon2)
 	} else {
 		x0 = complex((-1/(3*a))*(b+C+(deltaZero/C)), 0)
+		x1 = complex(-1/(3*a), 0) * (complex(b, 0) + complex(C, 0)*epsilon + complex(deltaZero, 0)/(complex(C, 0)*epsilon))
+		x2 = complex(-1/(3*a), 0) * (complex(b, 0) + complex(C, 0)*epsilon2 + complex(deltaZero, 0)/(complex(C, 0)*epsilon2))
 	}
-	x1 = complex(-1/(3*a), 0) * (complex(b, 0) + complex(C, 0)*epsilon + complex(deltaZero, 0)/(complex(C, 0)*epsilon))
-	x2 = complex(-1/(3*a), 0) * (complex(b, 0) + complex(C, 0)*epsilon2 + complex(deltaZero, 0)/(complex(C, 0)*epsilon2))
 	return
 }
 

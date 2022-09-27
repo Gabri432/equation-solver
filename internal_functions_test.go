@@ -103,8 +103,16 @@ func TestSolveQuadraticEquation(t *testing.T) {
 }
 
 func TestSolveCubicEquation(t *testing.T) {
-	myPolynom := createSamplePolynom(1, 1, 1, 1)
+	myPolynom := createSamplePolynom(1, -3, 3, -1)
 	x0, x1, x2 := solveCubicEquation(myPolynom)
-	t.Fatal(x0, "\nx1:", x1, "\nx2:", x2)
+	if real(x0) != 1 {
+		t.Fatalf("Expected x0 == 1, got %f", real(x0))
+	}
+	if real(x1) != 1 {
+		t.Fatalf("Expected x1 == 1, got %f", real(x1))
+	}
+	if real(x2) != 1 {
+		t.Fatalf("Expected x2 == 1, got %f", real(x2))
+	}
 
 }
