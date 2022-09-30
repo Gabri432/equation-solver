@@ -1,4 +1,14 @@
-// Check its correctness with this link: https://www.calculatorsoup.com/calculators/algebra/cubicequation.php
+/*
+The 'equationsolver' package allows to solve linear, Quadratic and Cubic equations.
+
+How to write an equation:
+
+1) 'x' is the only variable you can use;
+
+2) '^' is the symbol to indicate the powering, ex: x^3 is x powered 5.
+
+Check its correctness with this link: https://www.calculatorsoup.com/calculators/algebra/cubicequation.php
+*/
 package equationsolver
 
 import (
