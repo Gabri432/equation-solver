@@ -54,6 +54,6 @@ func EvaluateEquation(equation string) EquationSolution {
 	xElevated3 := sumVariableValues(thirdDegVar)                          // Sum of variables powered 3
 	constantsSum := sumConstantValues(eqConstants)                        // Sum of constants
 	polynom := createSamplePolynom(xElevated3, xElevated2, xElevated1, constantsSum)
-	solution := evaluatePolynomDeg(polynom)
+	solution := complexToReal(evaluatePolynomDeg(polynom))
 	return solution
 }
