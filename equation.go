@@ -1,11 +1,21 @@
 /*
-The 'equationsolver' package allows to solve linear, Quadratic and Cubic equations.
+The 'equationsolver' package allows to solve Linear, Quadratic and Cubic equations.
 
 How to write an equation:
 
 1) 'x' is the only variable you can use;
 
 2) '^' is the symbol to indicate the powering, ex: x^3 is x powered 5.
+
+Example:
+
+x^3+x^2+3=3+x-2x^2 (valid)
+
+y^2=x**2 (invalid)
+
+If you need to report an issue go on https://github.com/Gabri432/equation-solver/issues/new
+
+If you appreciate the work consider putting a star on https://github.com/Gabri432/equation-solver
 
 Check its correctness with this link: https://www.calculatorsoup.com/calculators/algebra/cubicequation.php
 */
@@ -53,6 +63,8 @@ func ValidateEquation(equation string) (errorMessage string) {
 // It takes the user equation and solves it.
 //
 // It can only take Linear, Quadratic and Cubic equations.
+//
+// It returns the set of real solutions, complex solution, and eventually an error message.
 func EvaluateEquation(equation string) EquationSolution {
 	if errorMessage := ValidateEquation(equation); errorMessage != "" {
 		fmt.Println(errorMessage)
