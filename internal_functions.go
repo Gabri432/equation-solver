@@ -208,7 +208,13 @@ func solveCubicEquation(polynom Polynom) (x0, x1, x2 complex128) {
 	return
 }
 
-/*
-x^2+2 = 0
-x^2/+2/=/0
-*/
+// It converts complex numbers to real ones if complex coefficient is zero.
+func complexToReal(solution EquationSolution) EquationSolution {
+	for i, complexSol := range solution.complexSolutions {
+		if imag(complexSol) == 0 {
+			solution.realSolutions = append(solution.realSolutions, real(complexSol))
+			solution.complexSolutions = append(solution.complexSolutions[:i], solution.complexSolutions[i+1:]...)
+		}
+	}
+	return solution
+}

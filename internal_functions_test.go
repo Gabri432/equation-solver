@@ -116,3 +116,17 @@ func TestSolveCubicEquation(t *testing.T) {
 	}
 
 }
+
+func TestComplexToReal(t *testing.T) {
+	mySolution := EquationSolution{
+		realSolutions:    []float64{1, 2, 3},
+		complexSolutions: []complex128{complex(1, 0), complex(2, 2)},
+	}
+	updatedSolution := complexToReal(mySolution)
+	if len(updatedSolution.complexSolutions) > 1 {
+		t.Fatalf("Expected to have 1 complex solution, got %d", len(updatedSolution.complexSolutions))
+	}
+	if len(updatedSolution.realSolutions) < 4 {
+		t.Fatalf("Expected to have 4 real solutions, got %d", len(updatedSolution.realSolutions))
+	}
+}
