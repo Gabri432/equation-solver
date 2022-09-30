@@ -51,8 +51,8 @@ func TestEvaluateEquation(t *testing.T) {
 }
 
 func TestEvaluateEquation2(t *testing.T) {
-	solution1 := EvaluateEquation("2x^3+x^2=-4-x")
-	solution2 := EvaluateEquation("2x^3+x^2+x+4=0")
+	solution1 := EvaluateEquation("1x^3+1x^2=-0-0x")  // 2x^3+x^2=-x-4
+	solution2 := EvaluateEquation("1x^3+1x^2+0x+0=0") // 2x^3+x^2+x+4=0
 	if len(solution1.complexSolutions) != len(solution2.complexSolutions) {
 		t.Fatalf("Expected same complex solutions amount for both equations, got %d and %d.", len(solution1.complexSolutions), len(solution2.complexSolutions))
 	}
@@ -61,5 +61,9 @@ func TestEvaluateEquation2(t *testing.T) {
 	}
 	if solution1.realSolutions[0] != solution2.realSolutions[0] {
 		t.Fatalf("Expected same real solution for both equations, got %f and %f", solution1.realSolutions[0], solution2.realSolutions[0])
+	}
+	t.Fatal(solution2)
+	if solution1.realSolutions[0] < -1.3 || solution1.realSolutions[0] > -1.1 {
+		t.Fatalf("The real solution found may not be completely or at all correct, got %f", solution1.realSolutions[0])
 	}
 }
