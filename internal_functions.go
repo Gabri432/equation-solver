@@ -55,7 +55,7 @@ func splitEquation(equation string) (xVariables, constants []string) {
 	splittedEquation := strings.Split(equation, ";")
 	for _, value := range splittedEquation {
 		if isOverEqualSign {
-			value = changeSign(value)
+			value = changeSign(value, true)
 		}
 		switch {
 		case strings.Contains(value, "x"):
@@ -70,13 +70,18 @@ func splitEquation(equation string) (xVariables, constants []string) {
 }
 
 // Replace the '-' minus sign with the '+' plus sign, and viceversa
-func changeSign(value string) string {
+func changeSign(value string, flag bool) string {
 	switch {
-	case strings.Contains(value, "+"):
+	case strings.Contains(value, "+") && flag:
 		return strings.ReplaceAll(value, "+", "-")
-	default:
+	case strings.Contains(value, "-") && flag:
 		return strings.ReplaceAll(value, "-", "+")
+	case !strings.Contains(value, "+") && flag:
+		return "-" + value
+	case !strings.Contains(value, "-") && flag:
+		return "+" + value
 	}
+	return ""
 }
 
 // Separates variables of different degree:
@@ -108,10 +113,15 @@ func separatePowers(variablesList []string) (firstDegVar, secondDegVar, thirdDeg
 func sumVariableValues(variablesList []string) (totalCoeff float64) {
 	coefficients := []float64{}
 	for _, ax := range variablesList {
-		if ax == "x" {
+		switch ax {
+		case "x", "+x":
 			ax = "1x"
-		} else if ax == "-x" {
+		case "-x":
 			ax = "-1x"
+		case "x^2", "+x^2":
+			ax = "1x^2"
+		case "x^3", "+x^3":
+			ax = "1x^3"
 		}
 		coeff, _ := strconv.ParseFloat(strings.Split(ax, "x")[0], 64)
 		coefficients = append(coefficients, coeff)

@@ -40,14 +40,17 @@ func TestSplitEquation(t *testing.T) {
 }
 
 func TestChangeSign(t *testing.T) {
-	if changeSign("-2x") != "+2x" {
-		t.Fatalf("Expected '+2x' as result, got %s", changeSign("-2x"))
+	if changeSign("-2x", true) != "+2x" {
+		t.Fatalf("Expected '+2x' as result, got %s", changeSign("-2x", true))
 	}
-	if changeSign("+3x") != "-3x" {
-		t.Fatalf("Expected '-3x' as result, got %s", changeSign("+3x"))
+	if changeSign("+3x", true) != "-3x" {
+		t.Fatalf("Expected '-3x' as result, got %s", changeSign("+3x", true))
 	}
-	if changeSign("x") != "x" {
-		t.Fatalf("Expected 'x' as result, got %s", changeSign("x"))
+	if changeSign("x", true) != "-x" {
+		t.Fatalf("Expected '-x' as result, got %s", changeSign("x", true))
+	}
+	if changeSign("1", true) != "-1" {
+		t.Fatalf("Expected '-1' as result, got %s", changeSign("1", true))
 	}
 }
 
@@ -66,8 +69,13 @@ func TestSeparatePowers(t *testing.T) {
 }
 
 func TestSumVariableValues(t *testing.T) {
-	if sumVariableValues([]string{"x", "4x", "-2x"}) != 3 {
-		t.Fatalf("Expected to have 3 as result, got %f", sumVariableValues([]string{"x", "4x", "-2x"}))
+	sum := sumVariableValues([]string{"x", "4x", "-2x"})
+	if sum != 3 {
+		t.Fatalf("Expected to have 3 as result, got %f", sum)
+	}
+	sum = sumVariableValues([]string{"x^2", "4x^2", "-2x^2"})
+	if sum != 3 {
+		t.Fatalf("Expected to have 3 as result, got %f", sum)
 	}
 
 }
