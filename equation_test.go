@@ -28,23 +28,24 @@ func TestValidateEquation(t *testing.T) {
 }
 
 func TestEvaluateEquation(t *testing.T) {
-	eqVariables, eqConstants := splitEquation(replaceEquation("x^2+3=1"))
-	firstDegVar, secondDegVar, thirdDegVar := separatePowers(eqVariables)
-	xElevated1 := sumVariableValues(firstDegVar)
-	xElevated2 := sumVariableValues(secondDegVar)
-	xElevated3 := sumVariableValues(thirdDegVar)
-	constantsSum := sumConstantValues(eqConstants)
-	if len(eqVariables) != 1 || len(eqConstants) != 2 {
-		t.Fatalf("Expected to have 1 variable and two costants, got %d var, %d const.", len(eqVariables), len(eqConstants))
-	}
-	if xElevated2 != 1 || xElevated3 != 0 || xElevated1 != 0 {
-		t.Fatalf("Expected 0 1 0, got %f %f %f.", xElevated3, xElevated2, xElevated1)
-	}
-	if constantsSum != 2 {
-		t.Fatalf("Expected total sum of constants to be equal to 2, got %f", constantsSum)
-	}
 	solution := EvaluateEquation("x^2+3=1")
 	if len(solution.complexSolutions) != 2 {
 		t.Fatalf("Expected to have 2 complex solutions, got %d.", len(solution.complexSolutions))
+	}
+	x1 := imag(solution.complexSolutions[0])
+	x2 := imag(solution.complexSolutions[0])
+	p := func(x float64) float64 {
+		return 1*x*x + 3
+	}
+	if p(x1)+p(x2)*-1 != 0 {
+		t.Fatalf("The two results aren't completely or at all correct: %f, %f", p(x1), p(x2))
+	}
+	solution2 := EvaluateEquation("+3=1-x^2")
+	y1 := imag(solution2.complexSolutions[0])
+	y2 := imag(solution2.complexSolutions[0])
+	sum1 := p(x1) + p(x2)*-1
+	sum2 := p(y1) + p(y2)*-1
+	if sum1 != sum2 {
+		t.Fatalf("Expected '+3=1-x^2' and 'x^2+3=1' to have the same result: %f, %f", sum1, sum2)
 	}
 }
