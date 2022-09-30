@@ -89,15 +89,20 @@ func TestSolveLinearEquation(t *testing.T) {
 
 func TestSolveQuadraticEquation(t *testing.T) {
 	myPolynom := createSamplePolynom(0, 2, 4, 1)
-	x1, x2 := solveQuadraticEquation(myPolynom)
-	if x1 > x2 {
-		t.Fatal("Expected x2 to be bigger than x1, but it is not.")
+	solution := complexToReal(solveQuadraticEquation(myPolynom))
+	x1 := solution.realSolutions[0]
+	x2 := solution.realSolutions[1]
+	if len(solution.realSolutions) != 2 {
+		t.Fatalf("Expected to have 2 real solutions, got %d", len(solution.realSolutions))
 	}
-	if x1 < -1.8 || x1 > -1.6 {
-		t.Fatalf("Expected to have 2 as result, got %f", solveLinearEquation(myPolynom))
+	if len(solution.complexSolutions) > 0 {
+		t.Fatalf("Expected to have 0 complex solutions, got %d ", len(solution.complexSolutions))
 	}
-	if x2 < -0.3 || x1 > 0 {
-		t.Fatalf("Expected to have 2 as result, got %f", solveLinearEquation(myPolynom))
+	p := func(x float64) float64 {
+		return 2*x*x + 4*x + 1
+	}
+	if (p(x1) > 0.5 || p(x1) < -0.5) || (p(x2) > 0.5 || p(x2) < -0.5) {
+		t.Fatalf("The two results aren't completely or at all correct: %f, %f", p(x1), p(x2))
 	}
 
 }

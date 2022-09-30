@@ -149,10 +149,7 @@ func evaluatePolynomDeg(polynom Polynom) (solution EquationSolution) {
 			complexSolutions: []complex128{x0, x1, x2},
 		}
 	case polynom.b != 0:
-		x1, x2 := solveQuadraticEquation(polynom)
-		return EquationSolution{
-			realSolutions: []float64{x1, x2},
-		}
+		return solveQuadraticEquation(polynom)
 	case polynom.c != 0:
 		return EquationSolution{
 			realSolutions: []float64{solveLinearEquation(polynom)},
@@ -171,20 +168,32 @@ func solveLinearEquation(polynom Polynom) (result float64) {
 	return (polynom.d / polynom.c) * -1
 }
 
-// It solves a quadratic equation of type ax^2+bx+c=0, as long as delta is not negative.
-func solveQuadraticEquation(polynom Polynom) (x1, x2 float64) {
+// It solves a quadratic equation of type ax^2+bx+c=0.
+func solveQuadraticEquation(polynom Polynom) (solution EquationSolution) {
 	a := polynom.b
 	b := polynom.c
 	c := polynom.d
 	delta := b*b - 4*a*c
-	x1 = (-b - math.Sqrt(delta)) / (2 * a)
-	x2 = (-b + math.Sqrt(delta)) / (2 * a)
+	if delta < 0 {
+		deltaToUse := math.Sqrt(math.Abs(delta))
+		x1 := complex((-b / (2 * a)), -deltaToUse/(2*a))
+		x2 := complex((-b / (2 * a)), deltaToUse/(2*a))
+		solution = EquationSolution{
+			complexSolutions: []complex128{x1, x2},
+		}
+		return
+	}
+	x1 := (-b - math.Sqrt(delta)) / (2 * a)
+	x2 := (-b + math.Sqrt(delta)) / (2 * a)
+	solution = EquationSolution{
+		realSolutions: []float64{x1, x2},
+	}
 	return
 }
 
 // It solves a cubic equation of type ax^3+bx^2+cx+d=0 using the General Cubic formula
 //
-// This is how it solve it https://en.wikipedia.org/wiki/Cubic_equation
+// More details on https://en.wikipedia.org/wiki/Cubic_equation
 func solveCubicEquation(polynom Polynom) (x0, x1, x2 complex128) {
 	a := polynom.a
 	b := polynom.b
