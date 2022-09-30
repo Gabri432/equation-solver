@@ -232,7 +232,11 @@ func complexToReal(solution EquationSolution) EquationSolution {
 	for i, complexSol := range solution.complexSolutions {
 		if imag(complexSol) == 0 {
 			solution.realSolutions = append(solution.realSolutions, real(complexSol))
-			solution.complexSolutions = append(solution.complexSolutions[:i], solution.complexSolutions[i+1:]...)
+			if i+1 < len(solution.complexSolutions) {
+				solution.complexSolutions = append(solution.complexSolutions[:i], solution.complexSolutions[i+1:]...)
+			} else {
+				solution.complexSolutions = append(solution.complexSolutions[:i])
+			}
 		}
 	}
 	return solution

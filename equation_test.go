@@ -49,3 +49,17 @@ func TestEvaluateEquation(t *testing.T) {
 		t.Fatalf("Expected '+3=1-x^2' and 'x^2+3=1' to have the same result: %f, %f", sum1, sum2)
 	}
 }
+
+func TestEvaluateEquation2(t *testing.T) {
+	solution1 := EvaluateEquation("2x^3+x^2=-4-x")
+	solution2 := EvaluateEquation("2x^3+x^2+x+4=0")
+	if len(solution1.complexSolutions) != len(solution2.complexSolutions) {
+		t.Fatalf("Expected same complex solutions amount for both equations, got %d and %d.", len(solution1.complexSolutions), len(solution2.complexSolutions))
+	}
+	if len(solution1.realSolutions) != len(solution2.realSolutions) {
+		t.Fatalf("Expected real solutions amount for both equations, got %d and %d.", len(solution1.realSolutions), len(solution2.realSolutions))
+	}
+	if solution1.realSolutions[0] != solution2.realSolutions[0] {
+		t.Fatalf("Expected same real solution for both equations, got %f and %f", solution1.realSolutions[0], solution2.realSolutions[0])
+	}
+}
