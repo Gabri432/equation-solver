@@ -25,16 +25,27 @@ import (
 // - the absence of '**' (consecutives multiplication signs)
 //
 // - the absence of '^^' (consecutives powering signs)
+//
+// - the absence of '//' (consecutives division signs)
+//
+// - the absence of 'xx' (consecutives variable signs)
 func ValidateEquation(equation string) (errorMessage string) {
 	hasEqualSign := strings.Contains(equation, "=")
 	hasDoubleMultiplySign := strings.Contains(equation, "**")
 	hasDoublePowerSign := strings.Contains(equation, "^^")
-	if !hasEqualSign {
+	hasDoubleDivisionSign := strings.Contains(equation, "//")
+	hasDoubleVariableSign := strings.Contains(equation, "xx")
+	switch {
+	case !hasEqualSign:
 		return "Error: No equal sign detected."
-	} else if hasDoubleMultiplySign {
+	case hasDoubleMultiplySign:
 		return "Error: Double multiply sign detected."
-	} else if hasDoublePowerSign {
+	case hasDoublePowerSign:
 		return "Error: Double power sign detected."
+	case hasDoubleDivisionSign:
+		return "Error: Double division sign detected."
+	case hasDoubleVariableSign:
+		return "Error: Double variable sign detected."
 	}
 	return ""
 }
