@@ -209,6 +209,17 @@ func solveCubicEquation(polynom Polynom) (x0, x1, x2 complex128) {
 	b := polynom.b
 	c := polynom.c
 	d := polynom.d
+	if d == 0 {
+		solution := solveQuadraticEquation(Polynom{a: b, b: c, c: d})
+		if len(solution.complexSolutions) == 0 {
+			x1 = complex(solution.realSolutions[0], 0)
+			x2 = complex(solution.realSolutions[1], 0)
+		} else if len(solution.realSolutions) == 0 {
+			x1 = solution.complexSolutions[0]
+			x2 = solution.complexSolutions[1]
+		}
+		return
+	}
 	q := (3*a*c - b*b) / (9 * a * a)
 	r := (-2*b*b*b + 9*a*b*c - 27*a*a*d) / (54 * a * a * a)
 	difference := math.Sqrt((q * q * q) + (r * r))

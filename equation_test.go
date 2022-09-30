@@ -66,3 +66,7 @@ func TestEvaluateEquation2(t *testing.T) {
 		t.Fatalf("Expected real solution to be equal to -1, got %f", solution1.realSolutions[0])
 	}
 }
+
+func TestBanana(t *testing.T) {
+	t.Fatal(EvaluateEquation("x^3-4x=5x^2+0"))
+}
