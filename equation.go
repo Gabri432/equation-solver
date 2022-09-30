@@ -39,9 +39,21 @@ func ValidateEquation(equation string) (errorMessage string) {
 	return ""
 }
 
-func EvaluateEquation(equation string) {
+// It takes the user equation and solves it.
+//
+// It can only take Linear, Quadratic and Cubic equations.
+func EvaluateEquation(equation string) EquationSolution {
 	if errorMessage := ValidateEquation(equation); errorMessage != "" {
 		fmt.Println(errorMessage)
-		return
+		return EquationSolution{errorDescription: errorMessage}
 	}
+	eqVariables, eqConstants := splitEquation(replaceEquation(equation))  // Separating variables and constants
+	firstDegVar, secondDegVar, thirdDegVar := separatePowers(eqVariables) // Separating variables of different power
+	xElevated1 := sumVariableValues(firstDegVar)                          // Sum of variables powered 1
+	xElevated2 := sumVariableValues(secondDegVar)                         // Sum of variables powered 2
+	xElevated3 := sumVariableValues(thirdDegVar)                          // Sum of variables powered 3
+	constantsSum := sumConstantValues(eqConstants)                        // Sum of constants
+	polynom := createSamplePolynom(xElevated3, xElevated2, xElevated1, constantsSum)
+	solution := evaluatePolynomDeg(polynom)
+	return solution
 }

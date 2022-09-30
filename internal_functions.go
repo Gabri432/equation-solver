@@ -13,6 +13,12 @@ type Polynom struct {
 	d float64
 }
 
+type EquationSolution struct {
+	realSolutions    []float64
+	complexSolutions []complex128
+	errorDescription string
+}
+
 // Checks if the given string is either a '+' plus, or '-' minus, or '=' equal sign.
 //
 // If so it returns true, otherwise false.
@@ -135,14 +141,28 @@ func createSamplePolynom(a, b, c, d float64) Polynom {
 	}
 }
 
-func evaluatePolynomDeg(polynom Polynom) {
+func evaluatePolynomDeg(polynom Polynom) (solution EquationSolution) {
 	switch {
 	case polynom.a != 0:
-		solveCubicEquation(polynom)
+		x0, x1, x2 := solveCubicEquation(polynom)
+		return EquationSolution{
+			complexSolutions: []complex128{x0, x1, x2},
+		}
 	case polynom.b != 0:
-		solveQuadraticEquation(polynom)
+		x1, x2 := solveQuadraticEquation(polynom)
+		return EquationSolution{
+			realSolutions: []float64{x1, x2},
+		}
 	case polynom.c != 0:
-		solveLinearEquation(polynom)
+		return EquationSolution{
+			realSolutions: []float64{solveLinearEquation(polynom)},
+		}
+	default:
+		return EquationSolution{
+			realSolutions:    []float64{0},
+			complexSolutions: []complex128{0},
+			errorDescription: "Missing variable error.",
+		}
 	}
 }
 
