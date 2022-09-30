@@ -201,29 +201,22 @@ func solveQuadraticEquation(polynom Polynom) (solution EquationSolution) {
 	return
 }
 
-// It solves a cubic equation of type ax^3+bx^2+cx+d=0 using the General Cubic formula
+// It solves a cubic equation of type ax^3+bx^2+cx+d=0
 //
-// More details on https://en.wikipedia.org/wiki/Cubic_equation
+// More details on https://en.wikipedia.org/wiki/Cubic_equation and https://proofwiki.org/wiki/Cardano's_Formula
 func solveCubicEquation(polynom Polynom) (x0, x1, x2 complex128) {
 	a := polynom.a
 	b := polynom.b
 	c := polynom.c
 	d := polynom.d
-	deltaZero := b*b - 3*a*c
-	deltaOne := 2*b*b*b - 9*a*b*c + 27*a*a*d
-	deltaDifference := deltaOne*deltaOne - 4*deltaZero*deltaZero*deltaZero
-	C := math.Cbrt(deltaOne + math.Sqrt(deltaDifference)/2)
-	epsilon := complex(-1/2, 1.73/2)
-	epsilon2 := epsilon * epsilon
-	if C == 0 {
-		x0 = complex((-1/(3*a))*(b+C), 0)
-		x1 = complex(-1/(3*a), 0) * (complex(b, 0) + complex(C, 0)*epsilon)
-		x2 = complex(-1/(3*a), 0) * (complex(b, 0) + complex(C, 0)*epsilon2)
-	} else {
-		x0 = complex((-1/(3*a))*(b+C+(deltaZero/C)), 0)
-		x1 = complex(-1/(3*a), 0) * (complex(b, 0) + complex(C, 0)*epsilon + complex(deltaZero, 0)/(complex(C, 0)*epsilon))
-		x2 = complex(-1/(3*a), 0) * (complex(b, 0) + complex(C, 0)*epsilon2 + complex(deltaZero, 0)/(complex(C, 0)*epsilon2))
-	}
+	q := (3*a*c - b*b) / (9 * a * a)
+	r := (-2*b*b*b + 9*a*b*c - 27*a*a*d) / (54 * a * a * a)
+	difference := math.Sqrt((q * q * q) + (r * r))
+	s := math.Cbrt(r + difference)
+	t := math.Cbrt(r - difference)
+	x0 = complex(s+t-(b/3*a), 0)
+	x1 = complex(-(s+t)/2-b/(3*a), (s-t)*(1.73/2))
+	x2 = complex(-(s+t)/2-b/(3*a), -(s-t)*(1.73/2))
 	return
 }
 
