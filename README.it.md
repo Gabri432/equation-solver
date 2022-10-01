@@ -1,13 +1,13 @@
 # equation-solver
-A program that will solve any linear, quadratic and cubic equation.
+Un programma che risolverà una qualunque equazione lineare, quadratica e cubica.
 
-## How to use it
-- Download the 'equationsolver' package:
+## Come usare la libreria
+- Scarica il package 'equationsolver':
 ```
 go get -u github.com/Gabri432/equation-solver
 ```
 
-- Example of usage
+- Esempio di utilizzo
 ```go
 package main
 
@@ -27,7 +27,7 @@ func main() {
 real solutions: [-0.8752..., 0.2013..., 5.6739...]
 complex solutions: []
 
-## Project Structure
+## Struttura del progetto
 - (main)
   - equation.go
   - equation_test.go
@@ -37,7 +37,7 @@ complex solutions: []
   - README.md
   - README.it.md
 
-## Notes
-- If you want to check the accuracy of the program use the following links:
+## Note aggiuntive
+- Se vuoi verificare l'accuratezza del programma usa i seguenti link:
   - [Cubic Equations Solver](https://www.calculatorsoup.com/calculators/algebra/cubicequation.php)
   - [Quadratic Equations Solver](https://www.calculatorsoup.com/calculators/algebra/quadratic-formula-calculator.php)

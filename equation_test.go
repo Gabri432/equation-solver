@@ -62,11 +62,11 @@ func TestEvaluateEquation2(t *testing.T) {
 	if solution1.realSolutions[0] != solution2.realSolutions[0] {
 		t.Fatalf("Expected same real solution for both equations, got %f and %f", solution1.realSolutions[0], solution2.realSolutions[0])
 	}
-	if solution1.realSolutions[0] != -1 {
+	if solution1.realSolutions[0] != 0 {
 		t.Fatalf("Expected real solution to be equal to -1, got %f", solution1.realSolutions[0])
 	}
 }
 
 func TestBanana(t *testing.T) {
-	t.Fatal(EvaluateEquation("x^3-4x=5x^2+0"))
+	t.Fatal(EvaluateEquation("x^3-4x=5x^2-1"))
 }
