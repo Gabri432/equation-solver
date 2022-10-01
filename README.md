@@ -25,6 +25,7 @@ func main() {
 === Output ===
 
 real solutions: [-0.8752..., 0.2013..., 5.6739...]
+
 complex solutions: []
 
 ## Project Structure
