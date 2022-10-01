@@ -222,12 +222,40 @@ func solveCubicEquation(polynom Polynom) (x0, x1, x2 complex128) {
 	}
 	q := (3*a*c - b*b) / (9 * a * a)
 	r := (-2*b*b*b + 9*a*b*c - 27*a*a*d) / (54 * a * a * a)
+	if (q*q*q)+(r*r) < 0 {
+		sol1, sol2, sol3 := depressedCubic(polynom)
+		x0 = complex(sol1, 0)
+		x1 = complex(sol2, 0)
+		x2 = complex(sol3, 0)
+		return
+	}
 	difference := math.Sqrt((q * q * q) + (r * r))
 	s := math.Cbrt(r + difference)
 	t := math.Cbrt(r - difference)
 	x0 = complex(s+t-(b/3*a), 0)
 	x1 = complex(-(s+t)/2-b/(3*a), (s-t)*(1.73/2))
 	x2 = complex(-(s+t)/2-b/(3*a), -(s-t)*(1.73/2))
+	return
+}
+
+// It finds the three real solutions of a general cubic equation using a depressed one.
+//
+// More details on: https://en.wikipedia.org/wiki/Cubic_equation#Depressed_cubic
+func depressedCubic(polynom Polynom) (x1, x2, x3 float64) {
+	a := polynom.a
+	b := polynom.b
+	c := polynom.c
+	d := polynom.d
+	p := (3*a*c - b*b) / (3 * a * a)
+	q := (2*b*b*b - 9*a*b*c + 27*a*a*d) / (27 * a * a * a)
+	t := func(k int) float64 { // https://proofwiki.org/wiki/Cardano%27s_Formula/Trigonometric_Form
+		helper1 := ((3 * q) / (2 * p)) * math.Sqrt(-3/p)
+		helper2 := (math.Acos(helper1/57.2958) - 2*3.14159265*float64(k)) / 3
+		return 2 * math.Sqrt(-p/3) * math.Cos(helper2/57.2958)
+	}
+	x1 = t(0) - (b / (3 * a))
+	x2 = t(1) - (b / (3 * a))
+	x3 = t(2) - (b / (3 * a))
 	return
 }
 

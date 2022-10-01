@@ -68,5 +68,6 @@ func TestEvaluateEquation2(t *testing.T) {
 }
 
 func TestBanana(t *testing.T) {
-	t.Fatal(EvaluateEquation("x^3-4x=5x^2-1"))
+	t.Fatal(depressedCubic(Polynom{a: 1, b: -5, c: -4, d: 0}))
+	t.Fatal(EvaluateEquation("x^3-4x-5x^2+1=0"))
 }
