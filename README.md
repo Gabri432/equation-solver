@@ -17,16 +17,20 @@ import (
 )
 
 func main() {
-    solution := eq.EvaluateEquation("x^3-4x=5x^2+0")
+    solution := eq.EvaluateEquation("x^3-4x=5x^2-1")
     fmt.Println("real solutions: ", solution.realSolutions, "\ncomplex solutions:", solution.complexSolutions)
+    myPolynom := eq.Polynom{a: 1, b: 5, c: -4, d: 1}
+    fmt.Println(myPolynom.SolveEquation())
 }
 
 ```
 === Output ===
 
-real solutions: [-0.8752..., 0.2013..., 5.6739...]
+real solutions: [-0.8752... 0.2013... 5.6739...]
 
 complex solutions: []
+
+{[0.38196... 2.61803...] [] }
 
 ## Functions
 ```go
