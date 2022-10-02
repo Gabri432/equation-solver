@@ -1,3 +1,6 @@
 02/10/2022
+v1.0.1
+PATCH - Changing method name: '(Polynom).solveEquation()' to '(Polynom).SolveEquation()'.
+
 v1.0.0
 First release
