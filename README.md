@@ -28,6 +28,36 @@ real solutions: [-0.8752..., 0.2013..., 5.6739...]
 
 complex solutions: []
 
+## Functions
+```go
+EvaluateEquations(equation string) EquationSolution
+```
+  - Takes the equation in form of string and returns the result of type EquationSolution
+
+```go
+ValidateEquation(equation string) string
+```
+  - Checks if the user inserted equation is valid.
+
+## Tipi
+### Polynom
+```go
+// Creates a polynom in the form: ax^3+bx^2+cx+d
+type Polynom struct {
+	a float64
+	b float64
+	c float64
+	d float64
+}
+```
+### EquationSolution
+```go
+type EquationSolution struct {
+	realSolutions    []float64    // set of real solutions
+	complexSolutions []complex128 // set of complex solutions
+	errorDescription string       // error message
+```
+
 ## Project Structure
 - (main)
   - equation.go
