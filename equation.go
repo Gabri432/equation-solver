@@ -5,7 +5,7 @@ How to write an equation:
 
 1) 'x' is the only variable you can use;
 
-2) '^' is the symbol to indicate the powering, ex: x^3 is x powered 5.
+2) '^' is the symbol to indicate the powering, ex: x^3 is x powered 3.
 
 Example:
 
@@ -18,6 +18,8 @@ If you need to report an issue go on https://github.com/Gabri432/equation-solver
 If you appreciate the work consider putting a star on https://github.com/Gabri432/equation-solver
 
 Check its correctness with this link: https://www.calculatorsoup.com/calculators/algebra/cubicequation.php
+
+This project is under the MIT license: https://github.com/Gabri432/equation-solver/blob/master/license
 */
 package equationsolver
 
