@@ -66,28 +66,3 @@ func TestEvaluateEquation2(t *testing.T) {
 		t.Fatalf("Expected real solution to be equal to -1, got %f", solution1.realSolutions[0])
 	}
 }
-
-func TestDepressedCubic(t *testing.T) {
-	polynom := Polynom{a: 1, b: -5, c: -4, d: 1}
-	a := polynom.a
-	b := polynom.b
-	c := polynom.c
-	d := polynom.d
-	x1, x2, x3 := depressedCubic(polynom)
-	errorMargin := 0.25
-	eq := func(polynom Polynom, x float64) float64 {
-		return a*(x*x*x) + b*(x*x) + c*x + d
-	}
-	eq1 := eq(polynom, x1)
-	eq2 := eq(polynom, x2)
-	eq3 := eq(polynom, x3)
-	if eq1 > errorMargin || eq1 < -errorMargin {
-		t.Fatalf("Expected eq(polynom, x1) to be really close to zero, got %f", eq1)
-	}
-	if eq2 > errorMargin || eq2 < -errorMargin {
-		t.Fatalf("Expected eq(polynom, x2) to be really close to zero, got %f", eq2)
-	}
-	if eq3 > errorMargin || eq3 < -errorMargin {
-		t.Fatalf("Expected eq(polynom, x3) to be really close to zero, got %f", eq3)
-	}
-}

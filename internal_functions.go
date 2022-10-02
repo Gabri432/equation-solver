@@ -274,3 +274,8 @@ func complexToReal(solution EquationSolution) EquationSolution {
 	}
 	return solution
 }
+
+// Calls 'evaluatePolynomDeg' function to solve the Polynom
+func (p Polynom) solvePolynom() EquationSolution {
+	return evaluatePolynomDeg(p)
+}
