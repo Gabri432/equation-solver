@@ -98,13 +98,13 @@ func TestSolveLinearEquation(t *testing.T) {
 func TestSolveQuadraticEquation(t *testing.T) {
 	myPolynom := createSamplePolynom(0, 2, 4, 1)
 	solution := complexToReal(solveQuadraticEquation(myPolynom))
-	x1 := solution.realSolutions[0]
-	x2 := solution.realSolutions[1]
-	if len(solution.realSolutions) != 2 {
-		t.Fatalf("Expected to have 2 real solutions, got %d", len(solution.realSolutions))
+	x1 := solution.RealSolutions[0]
+	x2 := solution.RealSolutions[1]
+	if len(solution.RealSolutions) != 2 {
+		t.Fatalf("Expected to have 2 real solutions, got %d", len(solution.RealSolutions))
 	}
-	if len(solution.complexSolutions) > 0 {
-		t.Fatalf("Expected to have 0 complex solutions, got %d ", len(solution.complexSolutions))
+	if len(solution.ComplexSolutions) > 0 {
+		t.Fatalf("Expected to have 0 complex solutions, got %d ", len(solution.ComplexSolutions))
 	}
 	p := func(x float64) float64 {
 		return 2*x*x + 4*x + 1
@@ -132,24 +132,24 @@ func TestSolveCubicEquation(t *testing.T) {
 
 func TestComplexToReal(t *testing.T) {
 	mySolution := EquationSolution{
-		realSolutions:    []float64{1, 2, 3},
-		complexSolutions: []complex128{complex(1, 0), complex(2, 2)},
+		RealSolutions:    []float64{1, 2, 3},
+		ComplexSolutions: []complex128{complex(1, 0), complex(2, 2)},
 	}
 	updatedSolution := complexToReal(mySolution)
-	if len(updatedSolution.complexSolutions) > 1 {
-		t.Fatalf("Expected to have 1 complex solution, got %d", len(updatedSolution.complexSolutions))
+	if len(updatedSolution.ComplexSolutions) > 1 {
+		t.Fatalf("Expected to have 1 complex solution, got %d", len(updatedSolution.ComplexSolutions))
 	}
-	if len(updatedSolution.realSolutions) < 4 {
-		t.Fatalf("Expected to have 4 real solutions, got %d", len(updatedSolution.realSolutions))
+	if len(updatedSolution.RealSolutions) < 4 {
+		t.Fatalf("Expected to have 4 real solutions, got %d", len(updatedSolution.RealSolutions))
 	}
 }
 
 func TestDepressedCubic(t *testing.T) {
-	polynom := Polynom{a: 1, b: -5, c: -4, d: 1}
-	a := polynom.a
-	b := polynom.b
-	c := polynom.c
-	d := polynom.d
+	polynom := Polynom{A: 1, B: -5, C: -4, D: 1}
+	a := polynom.A
+	b := polynom.B
+	c := polynom.C
+	d := polynom.D
 	x1, x2, x3 := depressedCubic(polynom)
 	errorMargin := 0.25
 	eq := func(polynom Polynom, x float64) float64 {

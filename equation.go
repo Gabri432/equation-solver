@@ -70,7 +70,7 @@ func ValidateEquation(equation string) (errorMessage string) {
 func EvaluateEquation(equation string) EquationSolution {
 	if errorMessage := ValidateEquation(equation); errorMessage != "" {
 		fmt.Println(errorMessage)
-		return EquationSolution{errorDescription: errorMessage}
+		return EquationSolution{ErrorDescription: errorMessage}
 	}
 	eqVariables, eqConstants := splitEquation(replaceEquation(equation))  // Separating variables and constants
 	firstDegVar, secondDegVar, thirdDegVar := separatePowers(eqVariables) // Separating variables of different power

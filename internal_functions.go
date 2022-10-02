@@ -8,16 +8,16 @@ import (
 
 // Creates a polynom in the form: ax^3+bx^2+cx+d
 type Polynom struct {
-	a float64
-	b float64
-	c float64
-	d float64
+	A float64
+	B float64
+	C float64
+	D float64
 }
 
 type EquationSolution struct {
-	realSolutions    []float64    // set of real solutions
-	complexSolutions []complex128 // set of complex solutions
-	errorDescription string       // error message
+	RealSolutions    []float64    // set of real solutions
+	ComplexSolutions []complex128 // set of complex solutions
+	ErrorDescription string       // error message
 }
 
 // Checks if the given string is either a '+' plus, or '-' minus, or '=' equal sign.
@@ -145,59 +145,59 @@ func sumConstantValues(constantsList []string) (total float64) {
 // Create a Polynom of type: ax^3+bx^2+cx+d=0
 func createSamplePolynom(a, b, c, d float64) Polynom {
 	return Polynom{
-		a: a,
-		b: b,
-		c: c,
-		d: d,
+		A: a,
+		B: b,
+		C: c,
+		D: d,
 	}
 }
 
 func evaluatePolynomDeg(polynom Polynom) (solution EquationSolution) {
 	switch {
-	case polynom.a != 0:
+	case polynom.A != 0:
 		x0, x1, x2 := solveCubicEquation(polynom)
 		return EquationSolution{
-			complexSolutions: []complex128{x0, x1, x2},
+			ComplexSolutions: []complex128{x0, x1, x2},
 		}
-	case polynom.b != 0:
+	case polynom.B != 0:
 		return solveQuadraticEquation(polynom)
-	case polynom.c != 0:
+	case polynom.C != 0:
 		return EquationSolution{
-			realSolutions: []float64{solveLinearEquation(polynom)},
+			RealSolutions: []float64{solveLinearEquation(polynom)},
 		}
 	default:
 		return EquationSolution{
-			realSolutions:    []float64{0},
-			complexSolutions: []complex128{0},
-			errorDescription: "Missing variable error.",
+			RealSolutions:    []float64{0},
+			ComplexSolutions: []complex128{0},
+			ErrorDescription: "Missing variable error.",
 		}
 	}
 }
 
 // It solves a linear equation of type ax+b=0.
 func solveLinearEquation(polynom Polynom) (result float64) {
-	return (polynom.d / polynom.c) * -1
+	return (polynom.D / polynom.C) * -1
 }
 
 // It solves a quadratic equation of type ax^2+bx+c=0.
 func solveQuadraticEquation(polynom Polynom) (solution EquationSolution) {
-	a := polynom.b
-	b := polynom.c
-	c := polynom.d
+	a := polynom.B
+	b := polynom.C
+	c := polynom.D
 	delta := b*b - 4*a*c
 	if delta < 0 {
 		deltaToUse := math.Sqrt(math.Abs(delta))
 		x1 := complex((-b / (2 * a)), -deltaToUse/(2*a))
 		x2 := complex((-b / (2 * a)), deltaToUse/(2*a))
 		solution = EquationSolution{
-			complexSolutions: []complex128{x1, x2},
+			ComplexSolutions: []complex128{x1, x2},
 		}
 		return
 	}
 	x1 := (-b - math.Sqrt(delta)) / (2 * a)
 	x2 := (-b + math.Sqrt(delta)) / (2 * a)
 	solution = EquationSolution{
-		realSolutions: []float64{x1, x2},
+		RealSolutions: []float64{x1, x2},
 	}
 	return
 }
@@ -206,18 +206,18 @@ func solveQuadraticEquation(polynom Polynom) (solution EquationSolution) {
 //
 // More details on https://en.wikipedia.org/wiki/Cubic_equation and https://proofwiki.org/wiki/Cardano's_Formula
 func solveCubicEquation(polynom Polynom) (x0, x1, x2 complex128) {
-	a := polynom.a
-	b := polynom.b
-	c := polynom.c
-	d := polynom.d
+	a := polynom.A
+	b := polynom.B
+	c := polynom.C
+	d := polynom.D
 	if d == 0 {
-		solution := solveQuadraticEquation(Polynom{a: b, b: c, c: d})
-		if len(solution.complexSolutions) == 0 {
-			x1 = complex(solution.realSolutions[0], 0)
-			x2 = complex(solution.realSolutions[1], 0)
-		} else if len(solution.realSolutions) == 0 {
-			x1 = solution.complexSolutions[0]
-			x2 = solution.complexSolutions[1]
+		solution := solveQuadraticEquation(Polynom{A: b, B: c, C: d})
+		if len(solution.ComplexSolutions) == 0 {
+			x1 = complex(solution.RealSolutions[0], 0)
+			x2 = complex(solution.RealSolutions[1], 0)
+		} else if len(solution.RealSolutions) == 0 {
+			x1 = solution.ComplexSolutions[0]
+			x2 = solution.ComplexSolutions[1]
 		}
 		return
 	}
@@ -243,10 +243,10 @@ func solveCubicEquation(polynom Polynom) (x0, x1, x2 complex128) {
 //
 // More details on: https://en.wikipedia.org/wiki/Cubic_equation#Depressed_cubic
 func depressedCubic(polynom Polynom) (x1, x2, x3 float64) {
-	a := polynom.a
-	b := polynom.b
-	c := polynom.c
-	d := polynom.d
+	a := polynom.A
+	b := polynom.B
+	c := polynom.C
+	d := polynom.D
 	p := (3*a*c - b*b) / (3 * a * a)
 	q := (2*b*b*b - 9*a*b*c + 27*a*a*d) / (27 * a * a * a)
 	t := func(k int) float64 { // https://proofwiki.org/wiki/Cardano%27s_Formula/Trigonometric_Form
@@ -262,13 +262,13 @@ func depressedCubic(polynom Polynom) (x1, x2, x3 float64) {
 
 // It converts complex numbers to real ones if complex coefficient is zero.
 func complexToReal(solution EquationSolution) EquationSolution {
-	for i, complexSol := range solution.complexSolutions {
+	for i, complexSol := range solution.ComplexSolutions {
 		if imag(complexSol) == 0 {
-			solution.realSolutions = append(solution.realSolutions, real(complexSol))
-			if i+1 < len(solution.complexSolutions) {
-				solution.complexSolutions = append(solution.complexSolutions[:i], solution.complexSolutions[i+1:]...)
+			solution.RealSolutions = append(solution.RealSolutions, real(complexSol))
+			if i+1 < len(solution.ComplexSolutions) {
+				solution.ComplexSolutions = append(solution.ComplexSolutions[:i], solution.ComplexSolutions[i+1:]...)
 			} else {
-				solution.complexSolutions = solution.complexSolutions[:i-1]
+				solution.ComplexSolutions = solution.ComplexSolutions[:i-1]
 			}
 		}
 	}
