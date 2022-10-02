@@ -1,4 +1,5 @@
 # equation-solver
+![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/Gabri432/equation-solver)
 Un programma che risolverà una qualunque equazione lineare, quadratica e cubica.
 
 ## Come usare la libreria
