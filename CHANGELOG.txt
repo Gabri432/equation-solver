@@ -1,4 +1,7 @@
 02/10/2022
+v1.0.4
+PATCH - Fixing wrong go module name, now it is 'github.com/Gabri432/equation-solver'.
+
 v1.0.3
 PATCH - Fixing unexported structs fields.
 
