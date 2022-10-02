@@ -2,6 +2,8 @@
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/Gabri432/equation-solver)
 ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/Gabri432/equation-solver)
 ![GitHub](https://img.shields.io/github/license/Gabri432/equation-solver)
+[![Go Report Card](https://goreportcard.com/badge/github.com/Gabri432/equation-solver)](https://goreportcard.com/report/github.com/Gabri432/equation-solver)
+[![Go Reference](https://pkg.go.dev/badge/github.com/Gabri432/equation-solver.svg)](https://pkg.go.dev/github.com/Gabri432/equation-solver)
 
 A program that will solve any linear, quadratic and cubic equation.
 
