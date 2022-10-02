@@ -1,4 +1,7 @@
 02/10/2022
+v1.0.3
+PATCH - Fixing unexported structs fields.
+
 v1.0.2
 PATCH - Fixing missing description of license used for the project. 
 
