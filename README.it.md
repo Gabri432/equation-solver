@@ -21,8 +21,8 @@ import (
 
 func main() {
     solution := eq.EvaluateEquation("x^3-4x=5x^2-1")
-    fmt.Println("real solutions: ", solution.realSolutions, "\ncomplex solutions:", solution.complexSolutions)
-    myPolynom := eq.Polynom{a: 1, b: 5, c: -4, d: 1}
+    fmt.Println("real solutions: ", solution.RealSolutions, "\ncomplex solutions:", solution.ComplexSolutions)
+    myPolynom := eq.Polynom{A: 1, B: 5, C: -4, D: 1}
     fmt.Println(myPolynom.SolveEquation())
 }
 

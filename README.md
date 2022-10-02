@@ -21,8 +21,8 @@ import (
 
 func main() {
     solution := eq.EvaluateEquation("x^3-4x=5x^2-1")
-    fmt.Println("real solutions: ", solution.realSolutions, "\ncomplex solutions:", solution.complexSolutions)
-    myPolynom := eq.Polynom{a: 1, b: 5, c: -4, d: 1}
+    fmt.Println("real solutions: ", solution.RealSolutions, "\ncomplex solutions:", solution.ComplexSolutions)
+    myPolynom := eq.Polynom{A: 1, B: 5, C: -4, D: 1}
     fmt.Println(myPolynom.SolveEquation())
 }
 
@@ -51,18 +51,18 @@ ValidateEquation(equation string) string
 ```go
 // Creates a polynom in the form: ax^3+bx^2+cx+d
 type Polynom struct {
-	a float64
-	b float64
-	c float64
-	d float64
+	A float64
+	B float64
+	C float64
+	D float64
 }
 ```
 ### EquationSolution
 ```go
 type EquationSolution struct {
-	realSolutions    []float64    // set of real solutions
-	complexSolutions []complex128 // set of complex solutions
-	errorDescription string       // error message
+	RealSolutions    []float64    // set of real solutions
+	ComplexSolutions []complex128 // set of complex solutions
+	ErrorDescription string       // error message
 ```
 
 ## Project Structure
