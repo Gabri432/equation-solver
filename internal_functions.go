@@ -265,10 +265,12 @@ func complexToReal(solution EquationSolution) EquationSolution {
 	for i, complexSol := range solution.ComplexSolutions {
 		if imag(complexSol) == 0 {
 			solution.RealSolutions = append(solution.RealSolutions, real(complexSol))
-			if i+1 < len(solution.ComplexSolutions) {
+			if i == 0 && i+1 < len(solution.ComplexSolutions) {
+				solution.ComplexSolutions = append(solution.ComplexSolutions[:i], solution.ComplexSolutions[i+1:]...)
+			} else if i == 1 {
 				solution.ComplexSolutions = append(solution.ComplexSolutions[:i], solution.ComplexSolutions[i+1:]...)
 			} else {
-				solution.ComplexSolutions = solution.ComplexSolutions[:i-1]
+				solution.ComplexSolutions = []complex128{}
 			}
 		}
 	}
@@ -277,5 +279,5 @@ func complexToReal(solution EquationSolution) EquationSolution {
 
 // Returns polynom solutions
 func (p Polynom) SolvePolynom() EquationSolution {
-	return evaluatePolynomDeg(p)
+	return complexToReal(evaluatePolynomDeg(p))
 }
