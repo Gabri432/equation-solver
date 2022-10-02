@@ -78,6 +78,10 @@ type EquationSolution struct {
     - CONTRIBUTING.it.md
     - CONTRIBUTING.md
 
+## Contribuire al progetto
+- Se vuoi aggiungere una feature o fare un aggiustamento fai un giro in questa pagina su come fare: [Contribuire a equation-solver](https://github.com/Gabri432/equation-solver/blob/master/.github/CONTRIBUTING.it.md)
+
+
 ## Note aggiuntive
 - Se vuoi verificare l'accuratezza del programma usa i seguenti link:
   - [Cubic Equations Solver](https://www.calculatorsoup.com/calculators/algebra/cubicequation.php)
