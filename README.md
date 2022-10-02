@@ -39,7 +39,7 @@ ValidateEquation(equation string) string
 ```
   - Checks if the user inserted equation is valid.
 
-## Tipi
+## Types
 ### Polynom
 ```go
 // Creates a polynom in the form: ax^3+bx^2+cx+d
