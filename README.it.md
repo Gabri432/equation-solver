@@ -67,6 +67,9 @@ type EquationSolution struct {
   - license
   - README.md
   - README.it.md
+  - .github
+    - CONTRIBUTING.it.md
+    - CONTRIBUTING.md
 
 ## Note aggiuntive
 - Se vuoi verificare l'accuratezza del programma usa i seguenti link:
