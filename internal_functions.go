@@ -250,8 +250,8 @@ func depressedCubic(polynom Polynom) (x1, x2, x3 float64) {
 	q := (2*b*b*b - 9*a*b*c + 27*a*a*d) / (27 * a * a * a)
 	t := func(k int) float64 { // https://proofwiki.org/wiki/Cardano%27s_Formula/Trigonometric_Form
 		arccosineArgument := ((3 * q) / (2 * p)) * math.Sqrt(-3/p)
-		cosineArgument := (math.Acos(arccosineArgument/57.2958) - 2*3.14159265*float64(k)) / 3
-		return 2 * math.Sqrt(-p/3) * math.Cos(cosineArgument/57.2958)
+		cosineArgument := (math.Acos(arccosineArgument) - 2*3.14159265*float64(k)) / 3
+		return 2 * math.Sqrt(-p/3) * math.Cos(cosineArgument)
 	}
 	x1 = t(0) - (b / (3 * a))
 	x2 = t(1) - (b / (3 * a))
