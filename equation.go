@@ -49,15 +49,15 @@ func ValidateEquation(equation string) (errorMessage string) {
 	hasDoubleVariableSign := strings.Contains(equation, "xx")
 	switch {
 	case !hasEqualSign:
-		return "Error: No equal sign detected."
+		return NO_EQUAL_SIGN_ERROR
 	case hasDoubleMultiplySign:
-		return "Error: Double multiply sign detected."
+		return DOUBLE_MULTIPLY_SIGN_ERROR
 	case hasDoublePowerSign:
-		return "Error: Double power sign detected."
+		return DOUBLE_POWER_SIGN_ERROR
 	case hasDoubleDivisionSign:
-		return "Error: Double division sign detected."
+		return DOUBLE_DIVISION_SIGN_ERROR
 	case hasDoubleVariableSign:
-		return "Error: Double variable sign detected."
+		return DOUBLE_VARIABLE_SIGN_ERROR
 	}
 	return ""
 }

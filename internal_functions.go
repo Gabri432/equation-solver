@@ -6,20 +6,6 @@ import (
 	"strings"
 )
 
-// Creates a polynom in the form: ax^3+bx^2+cx+d
-type Polynom struct {
-	A float64
-	B float64
-	C float64
-	D float64
-}
-
-type EquationSolution struct {
-	RealSolutions    []float64    // set of real solutions
-	ComplexSolutions []complex128 // set of complex solutions
-	ErrorDescription string       // error message
-}
-
 // Checks if the given string is either a '+' plus, or '-' minus, or '=' equal sign.
 //
 // If so it returns true, otherwise false.
